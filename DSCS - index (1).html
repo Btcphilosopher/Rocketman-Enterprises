@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSCS Market — Demo Storefront</title>
+<style>
+:root{--bg:#faf8f4;--st:#efebe3;--ink:#16202e;--mut:#5d6676;--steel:#3d6286;--amb:#b5812f;--line:#dcd6c9;--err:#a63a2e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,.brand{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.01em;margin:0}
+h2{font-size:28px;margin-bottom:16px}h3{font-size:18px}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}a{color:var(--steel)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px}.wrap{max-width:1200px;margin:0 auto;padding:0 20px}.sec{padding:44px 20px}.narrow{max-width:640px}
+.bar{background:var(--ink);color:#f3efe6;text-align:center;font-size:13px;padding:7px 12px}
+header{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;max-width:1200px;margin:0 auto;flex-wrap:wrap}
+.brand{font-size:22px;background:none;border:0;padding:0}.brand b{color:var(--amb);font-weight:400}
+nav{display:flex;gap:2px}nav button,.lnk{background:none;border:0;padding:8px 10px;border-radius:2px;color:inherit}nav button:hover,.lnk:hover{background:var(--st)}.lnk{text-decoration:underline;padding:2px 4px}
+.srch{position:relative;flex:1;min-width:170px}.sug{position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--line);z-index:30}
+.sug button{display:flex;width:100%;gap:10px;align-items:center;text-align:left;background:none;border:0;padding:8px 10px}.sug button:hover{background:var(--st)}.sug img{width:36px;height:36px}
+input,select,textarea{border:1px solid var(--line);background:#fff;padding:9px 11px;border-radius:2px;width:100%}input[type=radio],input[type=checkbox]{width:auto}
+.btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:10px 18px;border-radius:2px;width:auto}.btn:hover{background:var(--steel);border-color:var(--steel)}
+.btn.alt{background:none;color:var(--ink)}.btn.alt:hover{background:var(--st)}.btn.sm{padding:5px 11px;font-size:13px}.btn[disabled]{opacity:.45;cursor:not-allowed}.menu{display:none}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}.sr{position:absolute;left:-9999px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:52px 20px}.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.08;margin:8px 0 16px}
+.ey{text-transform:uppercase;letter-spacing:.14em;color:var(--amb)}.lead{font-size:18px;color:var(--mut);max-width:520px}.heroimg img{width:100%;display:block;border:1px solid var(--line)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.tile{background:var(--st);border:1px solid var(--line);padding:28px 20px;text-align:left;display:flex;flex-direction:column;gap:6px}.tile:hover{border-color:var(--steel)}.tile strong{font:22px Georgia,serif;font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}.card{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+.ph{position:relative;display:block;width:100%;aspect-ratio:1;border:0;padding:0;background:var(--st);overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}.card:hover .ph img{transform:scale(1.04)}
+.tag{position:absolute;top:10px;left:10px;background:var(--amb);color:#fff;font-size:12px;padding:2px 8px}.tag.so{background:var(--ink);left:auto;right:10px}
+.cb{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}.cb .btn{margin-top:auto}small,.mut{color:var(--mut)}.pr{font-weight:600}.pr s{color:var(--mut);font-weight:400;margin-left:8px}.pr.big{font-size:24px}
+.promo{background:var(--ink);color:#f3efe6;padding:44px 0;margin:20px 0}.promo .btn{background:var(--amb);border-color:var(--amb)}
+.ben{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}.ben div{border-top:2px solid var(--amb);padding-top:10px}
+.news{background:var(--st);padding:36px 0}.news form{display:flex;gap:10px;max-width:480px;flex-wrap:wrap}.news .fld{flex:1;min-width:200px}
+footer{background:var(--ink);color:#cfd3da;padding:36px 0;font-size:14px;margin-top:40px}footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}footer button{display:block;background:none;border:0;color:#fff;padding:3px 0;text-align:left}footer button:hover{text-decoration:underline}
+.tb{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}.tb select,.tb input{width:auto;min-width:150px}
+.empty{padding:30px;text-align:center;color:var(--mut);border:1px dashed var(--line)}.empty.sm{padding:10px;border:0}
+.fld{margin-bottom:12px}.fld label,legend{display:block;font-weight:600;font-size:13px;margin-bottom:4px}.err{color:var(--err);font-size:13px;margin:3px 0 0;min-height:0}.fld input[aria-invalid=true],.fld select[aria-invalid=true]{border-color:var(--err)}
+.co{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:start}.sum{background:#fff;border:1px solid var(--line);padding:20px}.row2{display:flex;justify-content:space-between;gap:12px;padding:4px 0}.row2.big{font-weight:700;font-size:18px;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;list-style:none;padding:0}.steps li{padding:4px 12px;border:1px solid var(--line);font-size:13px}.steps .on{background:var(--ink);color:#fff;border-color:var(--ink)}
+fieldset{border:1px solid var(--line);margin:0 0 14px;padding:10px 14px}.rad{display:flex;gap:8px;padding:4px 0}.note{background:#fff7e6;border:1px solid #e6cf9d;padding:10px 14px;margin:0 0 16px;font-size:14px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}.badge{background:#fff7e6;border:1px solid #e6cf9d;padding:2px 10px;font-size:13px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:16px 0}.tabs button{background:none;border:0;padding:9px 16px;border-bottom:2px solid transparent}.tabs [aria-selected=true]{border-color:var(--amb);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}.stat{background:#fff;border:1px solid var(--line);padding:16px}.stat strong{display:block;font:26px Georgia,serif;font-weight:400}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}td input[type=number]{width:80px}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);border-left:1px solid var(--line);transform:translateX(100%);visibility:hidden;transition:transform .25s,visibility .25s;z-index:50;display:flex;flex-direction:column;padding:18px}
+#drawer.open{transform:none;visibility:visible}.dh{display:flex;justify-content:space-between;align-items:center}.dl{flex:1;overflow:auto;margin:10px 0}
+.ln{display:grid;grid-template-columns:56px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.ln img{width:56px;height:56px}.q{display:flex;gap:8px;align-items:center}.q>button:not(.lnk){width:26px;height:26px;border:1px solid var(--line);background:#fff}
+#ov{position:fixed;inset:0;background:rgba(22,32,46,.55);display:flex;align-items:center;justify-content:center;z-index:60;padding:16px}#ov[hidden]{display:none}
+.dlg{background:var(--bg);width:100%;max-width:520px;max-height:90vh;overflow:auto;padding:24px;position:relative}.dlg.wide{max-width:820px}.dlg h2{padding-right:30px}
+.x{position:absolute;top:8px;right:8px;background:none;border:0;font-size:26px;line-height:1;width:36px;height:36px}#drawer .x{position:static}
+.qv{display:grid;grid-template-columns:1fr 1fr;gap:20px}.qv>img{width:100%}.rel{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+#toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:10px 18px;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:90vw}#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.hero,.co,.cols,.qv{grid-template-columns:1fr}.hero{padding-top:28px}.menu{display:inline-block}nav{display:none;width:100%;flex-direction:column;order:9}nav.open{display:flex}.sec{padding:30px 16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head>
+<body>
+<div class="bar">DEMO STORE · Free standard delivery over £75 · Code WELCOME10 for 10% off</div>
+<header><div class="hd">
+<button class="brand" data-act="home" aria-label="DSCS Market home">DSCS<b>·</b>Market</button>
+<form class="srch" data-form="search" role="search" autocomplete="off"><input id="q" name="q" type="search" placeholder="Search products" aria-label="Search products"><div class="sug" id="sug" hidden></div></form>
+<nav id="nav" aria-label="Main"><button data-act="shop">Shop</button><button data-act="nav" data-id="account">Account</button><button data-act="nav" data-id="admin">Admin (demo)</button></nav>
+<button class="btn alt" data-act="cart" aria-label="Open basket">Basket (<span id="cnt">0</span>)</button>
+<button class="btn alt menu" data-act="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+</div></header>
+<main id="main" tabindex="-1"></main>
+<footer><div class="wrap">
+<div><h3 style="color:#fff">DSCS Market</h3><p>A fictional retailer for demonstration. Orders, accounts and inventory live only in this browser.</p></div>
+<div><strong>Customer service</strong><button data-act="info" data-id="delivery">Delivery</button><button data-act="info" data-id="returns">Returns</button><button data-act="info" data-id="contact">Contact</button></div>
+<div><strong>Company</strong><button data-act="info" data-id="about">About</button><button data-act="info" data-id="privacy">Privacy</button><button data-act="info" data-id="terms">Terms</button><button data-act="info" data-id="demo">Demo limits</button></div>
+<div><strong>Demo tools</strong><button data-act="reset">Reset demo data</button></div>
+</div></footer>
+<aside id="drawer" aria-label="Basket"></aside><div id="ov" hidden></div><div id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+/* ===== 1. CONFIGURATION & SAMPLE DATA ===== */
+const SHIP={std:{n:'Standard (2–4 working days)',p:495},exp:{n:'Express (next working day)',p:995}},FREE_OVER=7500;
+const CODES={WELCOME10:{t:'pct',v:10,d:'10% off goods'},SAVE20:{t:'amt',v:2000,min:10000,d:'£20 off orders of £100 or more'},FREESHIP:{t:'ship',d:'Free standard delivery'}};
+const CATS=['Audio','Desk','Home','Travel'],COUNTRIES=['United Kingdom','Ireland','France','Germany','United States'];
+const STATUS=['Pending','Confirmed','Processing','Dispatched','Delivered'];
+const NEXT={Pending:['Confirmed','Cancelled'],Confirmed:['Processing','Cancelled'],Processing:['Dispatched','Cancelled'],Dispatched:['Delivered'],Delivered:[],Cancelled:[]};
+/* INTEGRATION POINTS — all null: nothing is connected. A production build needs a trusted backend:
+   HOOKS.payment(order) → payment provider; HOOKS.inventory(order) → authoritative stock; HOOKS.email(order) → transactional email; HOOKS.orders(order) → order database. */
+const HOOKS={payment:null,inventory:null,email:null,orders:null};
+const SEED=[
+['p1','Meridian Desk Lamp','Desk',12900,15900,14,4.7,212,'lighting,aluminium',1,0,'Dimmable LED task lamp with a weighted anodised base and counterbalanced arm.'],
+['p2','Halden Wireless Headphones','Audio',24900,0,9,4.8,341,'headphones,wireless',1,0,'Closed-back over-ear headphones with 40-hour battery and a neutral studio tuning.'],
+['p3','Corvus Mechanical Keyboard','Desk',14900,0,20,4.6,158,'keyboard,tactile',1,1,'Compact 75% keyboard in brushed aluminium with hot-swappable tactile switches.'],
+['p4','Tidewell Ceramic Carafe','Home',3800,0,35,4.5,87,'ceramic,kitchen',0,0,'Hand-glazed stoneware carafe with a cork stopper. Holds 900ml.'],
+['p5','Argyll Wool Throw','Home',8900,10900,12,4.9,264,'wool,textile',1,0,'Lambswool throw woven in Scotland, finished with a hand-rolled fringe.'],
+['p6','Vantage Carry-On','Travel',21900,0,6,4.7,179,'luggage,cabin',1,0,'Cabin-approved hard-shell case with a recessed handle and quiet wheels.'],
+['p7','Ferro Pocket Speaker','Audio',7900,0,25,4.4,203,'speaker,portable',0,0,'Palm-sized Bluetooth speaker with a steel grille and 12 hours of playback.'],
+['p8','Linden Oak Monitor Riser','Desk',6900,0,4,4.6,96,'oak,storage',0,0,'Solid oak riser with a shallow drawer for cables and small items.'],
+['p9','Oriel Travel Organiser','Travel',3400,0,40,4.3,71,'organiser,cotton',0,1,'Waxed-cotton organiser for chargers, passports and everyday carry.'],
+['p10','Kestrel Insulated Flask','Home',2800,0,50,4.6,310,'steel,drinks',0,0,'Double-walled steel flask that keeps drinks hot for 12 hours or cold for 24.'],
+['p11','Solace Desk Mat','Desk',4500,0,0,4.5,64,'felt,mat',0,1,'Merino felt desk mat in graphite with a stitched edge.'],
+['p12','Pennine Packing Cubes','Travel',2900,3500,30,4.4,118,'packing,nylon',0,1,'Set of three lightweight cubes in recycled ripstop nylon.'],
+['p13','Quill Studio Earbuds','Audio',14900,0,18,4.5,52,'earbuds,wireless',0,1,'In-ear monitors with active noise cancelling and a compact aluminium case.']
+];
+const seed=()=>SEED.map(a=>({id:a[0],name:a[1],cat:a[2],price:a[3],was:a[4],stock:a[5],rating:a[6],reviews:a[7],tags:a[8].split(','),feat:!!a[9],isNew:!!a[10],desc:a[11]}));
+const INFO={delivery:['Delivery','Standard delivery is £4.95 (free over £75 of goods after discounts) and Express is £9.95. This demo does not generate real shipping labels.'],returns:['Returns','Unused items can be returned within 30 days. This is sample policy text for the demo store.'],contact:['Contact','This fictional store has no live support. A real store would show a monitored email address and phone number here.'],about:['About DSCS Market','We curate durable, well-made essentials for work, home and travel. The brand and products are fictional.'],privacy:['Privacy','Demo data (orders, basket, demo accounts) is stored only in your browser localStorage and is never sent anywhere. Clear it with “Reset demo data”.'],terms:['Terms','Demo terms: no real orders are taken, no payment is processed, and no goods will be shipped.'],demo:['What works locally','Works in-browser: catalogue, basket, discounts, checkout flow, demo accounts, admin and order lifecycle, all saved in localStorage. Needs a real backend: payment, secure sign-in, shared inventory and orders, email, shipping labels.']};
+/* ===== 3. LOCAL PERSISTENCE ===== */
+const K='dscs.market.v1.';
+const store={get(k,d,ok){try{const v=JSON.parse(localStorage.getItem(K+k));return v!==null&&ok(v)?v:d}catch{return d}},set(k,v){try{localStorage.setItem(K+k,JSON.stringify(v))}catch{toast('Browser storage unavailable — changes will not persist.')}}};
+const isObj=v=>v&&typeof v==='object'&&!Array.isArray(v);
+const okProd=p=>isObj(p)&&typeof p.id==='string'&&typeof p.name==='string'&&Number.isInteger(p.price)&&p.price>=0&&Number.isInteger(p.stock)&&p.stock>=0&&Array.isArray(p.tags);
+const okOrder=o=>isObj(o)&&typeof o.ref==='string'&&Array.isArray(o.lines)&&Number.isInteger(o.total)&&Array.isArray(o.history);
+/* ===== 2. APPLICATION STATE ===== */
+const freshCo=()=>({step:1,c:{},d:{country:'United Kingdom',method:'std'},terms:false,err:{},busy:false,done:null});
+const S={products:store.get('products',seed(),v=>Array.isArray(v)&&v.length>0&&v.every(okProd)),cart:store.get('cart',{},isObj),
+orders:store.get('orders',[],v=>Array.isArray(v)&&v.every(okOrder)),users:store.get('users',[],v=>Array.isArray(v)&&v.every(u=>isObj(u)&&typeof u.email==='string')),
+me:store.get('me',null,v=>typeof v==='string'),code:store.get('code','',v=>typeof v==='string'),co:freshCo(),view:'shop',q:'',cat:'All',max:0,sort:'pop',admin:false,tab:'over',aq:'',af:'All'};
+const persist=k=>store.set(k,S[k]);
+/* ===== 4. CURRENCY & FORMATTING UTILITIES ===== */
+const gbp=p=>(p/100).toLocaleString('en-GB',{style:'currency',currency:'GBP'});
+const toPence=s=>{s=String(s).trim();if(!/^\d{1,6}(\.\d{1,2})?$/.test(s))return null;const[a,b='']=s.split('.');return +a*100+ +(b+'00').slice(0,2)};
+const fmtDate=t=>new Date(t).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
+const $=s=>document.querySelector(s);let uid=0;
+const h=(t,a,...c)=>{const e=document.createElement(t);for(const k in a||{}){const v=a[k];if(v==null||v===false)continue;k==='class'?e.className=v:e.setAttribute(k,v===true?'':v)}c.flat(9).forEach(x=>{if(x!=null&&x!==false)e.append(x.nodeType?x:document.createTextNode(x))});return e};
+const SH=['<circle cx="200" cy="190" r="90"/>','<rect x="115" y="105" width="170" height="170"/>','<path d="M200 95l95 170H105z"/>'];
+const art=p=>{const n=[...p.id].reduce((a,c)=>a*31+c.charCodeAt(0),7),H=(n*47)%360;return'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="hsl(${H},18%,88%)"/><g fill="hsl(${H},28%,36%)">${SH[n%3]}</g><rect x="120" y="318" width="160" height="6" fill="hsl(${H},28%,26%)"/></svg>`)};
+const meta=p=>(p.reviews?`★ ${p.rating} (${p.reviews}) · `:'New · ')+(p.stock<1?'Out of stock':p.stock<=5?`Only ${p.stock} left`:'In stock');
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3200)};
+/* ===== 5. PRODUCT CATALOGUE LOGIC ===== */
+const prod=id=>S.products.find(p=>p.id===id);
+const visible=()=>{const q=S.q.toLowerCase(),s={pop:(a,b)=>b.reviews-a.reviews,lo:(a,b)=>a.price-b.price,hi:(a,b)=>b.price-a.price,az:(a,b)=>a.name.localeCompare(b.name)}[S.sort];
+return S.products.filter(p=>(S.cat==='All'||p.cat===S.cat)&&(!S.max||p.price<=S.max)&&(!q||[p.name,p.cat,p.desc,...p.tags].join(' ').toLowerCase().includes(q))).sort(s)};
+/* ===== 6. BASKET & DISCOUNT LOGIC (integer pence) ===== */
+const calc=(method=S.co.d.method)=>{const lines=Object.keys(S.cart).map(id=>{const p=prod(id);return{p,q:p?Math.min(S.cart[id],p.stock):0}}).filter(l=>l.p&&l.q>0);
+const sub=lines.reduce((a,l)=>a+l.p.price*l.q,0),c=CODES[S.code];let disc=0;
+if(c&&c.t==='pct')disc=Math.round(sub*c.v/100);if(c&&c.t==='amt'&&sub>=c.min)disc=Math.min(c.v,sub);
+let ship=lines.length?(SHIP[method]||SHIP.std).p:0;if(lines.length&&method!=='exp'&&(sub-disc>=FREE_OVER||(c&&c.t==='ship')))ship=0;
+return{lines,sub,disc,ship,total:sub-disc+ship,count:lines.reduce((a,l)=>a+l.q,0)}};
+const addCart=(id,n=1)=>{const p=prod(id);if(!p||p.stock<1)return toast('Sorry, that item is out of stock.');const cur=S.cart[id]||0,nx=Math.min(cur+n,p.stock);S.cart[id]=nx;persist('cart');
+toast(nx<cur+n?`Only ${p.stock} available — basket set to ${nx}.`:`Added ${p.name} to your basket.`);chrome()};
+const setQty=(id,n)=>{const p=prod(id);if(!p||n<=0)delete S.cart[id];else S.cart[id]=Math.min(n,p.stock);persist('cart');S.view==='checkout'?render():chrome()};
+const applyCode=raw=>{const c=raw.trim().toUpperCase(),r=CODES[c];if(!c)return'Enter a discount code.';if(!r)return'That code is not recognised.';if(r.t==='amt'&&calc().sub<r.min)return'This code needs £100 or more of goods.';S.code=c;persist('code');return''};
+/* ===== 7. CHECKOUT & VALIDATION ===== */
+const RE={email:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,post:/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s?\d[A-Za-z]{2}$/,tel:/^[+\d][\d\s()-]{6,18}$/};
+const validate=step=>{const e={},c=S.co.c,d=S.co.d;
+if(step===1){if(!RE.email.test((c.email||'').trim()))e.email='Enter a valid email address.';if(!(c.name||'').trim())e.name='Enter your full name.';if(c.phone&&!RE.tel.test(c.phone.trim()))e.phone='Enter a valid number or leave this blank.'}
+if(step===2){if(!(d.addr||'').trim())e.addr='Enter your street address.';if(!(d.city||'').trim())e.city='Enter your town or city.';
+if(d.country==='United Kingdom'?!RE.post.test((d.post||'').trim()):!(d.post||'').trim())e.post=d.country==='United Kingdom'?'Enter a valid UK postcode, e.g. SW1A 1AA.':'Enter a postal code.';
+if(!COUNTRIES.includes(d.country))e.country='Select a country.';if(!SHIP[d.method])e.method='Choose a delivery method.'}
+if(step===3&&!S.co.terms)e.terms='Please acknowledge the demo terms to continue.';return e};
+const mkRef=()=>{let r;do{r='DSCS-'+Date.now().toString(36).toUpperCase().slice(-5)+Math.random().toString(36).toUpperCase().slice(2,5)}while(S.orders.some(o=>o.ref===r));return r};
+const placeOrder=()=>{const C=S.co;if(C.busy||C.done)return;C.busy=true;const t=calc();
+if(!t.lines.length){C.busy=false;return toast('Your basket is empty.')}
+if(Object.keys(S.cart).some(id=>!prod(id)||S.cart[id]>prod(id).stock)){C.busy=false;toast('Stock has changed — please review your basket.');return render()}
+const o={ref:mkRef(),created:Date.now(),status:'Pending',email:C.c.email.trim(),name:C.c.name.trim(),phone:(C.c.phone||'').trim(),addr:C.d.addr.trim(),city:C.d.city.trim(),post:C.d.post.trim().toUpperCase(),country:C.d.country,method:C.d.method,
+lines:t.lines.map(l=>({id:l.p.id,name:l.p.name,price:l.p.price,qty:l.q})),sub:t.sub,disc:t.disc,code:t.disc>0||CODES[S.code]?.t==='ship'?S.code:'',ship:t.ship,total:t.total,history:[{s:'Pending',t:Date.now()}]};
+t.lines.forEach(l=>{l.p.stock-=l.q});S.orders.unshift(o);S.cart={};S.code='';['products','orders','cart','code'].forEach(persist);
+HOOKS.orders&&HOOKS.orders(o);C.done=o;C.step=4;C.busy=false;render();scrollTo(0,0)};
+/* ===== 8. ACCOUNT DEMO (no passwords are collected or stored) ===== */
+const me=()=>S.users.find(u=>u.email===S.me);
+/* ===== 9. ORDER MANAGEMENT ===== */
+const setStatus=(ref,s)=>{const o=S.orders.find(x=>x.ref===ref);if(!o||!NEXT[o.status].includes(s))return toast('That status change is not allowed.');
+if(s==='Cancelled')o.lines.forEach(l=>{const p=prod(l.id);if(p)p.stock+=l.qty});o.status=s;o.history.push({s,t:Date.now()});persist('orders');persist('products');
+toast(`Order ${o.ref} is now ${s}.`);modal('Order '+o.ref,orderView(o,S.admin&&S.view==='admin'),true);render()};
+/* ===== 11. RENDERING & NAVIGATION ===== */
+const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const scrollShop=()=>$('#shop')?.scrollIntoView({behavior:reduced()?'auto':'smooth'});
+const go=(v,fn)=>{S.view=v;render();$('#nav').classList.remove('open');fn?fn():scrollTo(0,0)};
+const render=()=>{$('#main').replaceChildren({shop:vShop,checkout:vCheckout,account:vAccount,admin:vAdmin}[S.view]());chrome()};
+const chrome=()=>{$('#cnt').textContent=calc().count;if($('#drawer').classList.contains('open'))drawer()};
+const field=(lbl,name,val,err,x={})=>{const id='f'+(++uid),{opts,ta,opt,...a}=x;
+const el=h(opts?'select':ta?'textarea':'input',{id,name,'aria-describedby':id+'e','aria-invalid':err?'true':null,...(opts||ta?{}:{value:val??''}),...a},opts?opts.map(o=>h('option',{value:o,selected:o===val},o)):ta?String(val||''):null);
+return h('div',{class:'fld'},h('label',{for:id},lbl+(opt?' (optional)':'')),el,h('p',{class:'err',id:id+'e','data-e':name},err||''))};
+const setErrs=(f,e)=>f.querySelectorAll('[data-e]').forEach(p=>{p.textContent=e[p.dataset.e]||''});
+const sec=(t,c,id)=>h('section',{class:'wrap sec',id},h('h2',{},t),c);
+const row2=(a,b,s)=>h('div',{class:'row2'+(s?' big':'')},h('span',{},a),h('span',{},b));
+const totals=t=>h('div',{},row2('Subtotal',gbp(t.sub)),t.disc>0?row2('Discount ('+S.code+')','−'+gbp(t.disc)):S.code&&t.lines.length>0?row2('Code',S.code+' applied'):null,row2('Delivery',t.lines.length>0?(t.ship?gbp(t.ship):'Free'):'—'),row2('Total',gbp(t.total),1));
+const card=p=>h('article',{class:'card'},h('button',{class:'ph','data-act':'quick','data-id':p.id,'aria-label':'Quick view '+p.name},h('img',{src:art(p),alt:'',loading:'lazy'}),p.was>p.price&&h('span',{class:'tag'},'Sale'),p.stock<1&&h('span',{class:'tag so'},'Sold out')),
+h('div',{class:'cb'},h('small',{},p.cat),h('h3',{},p.name),h('div',{class:'pr'},gbp(p.price),p.was>p.price&&h('s',{},gbp(p.was))),h('small',{},meta(p)),h('button',{class:'btn sm','data-act':'add','data-id':p.id,disabled:p.stock<1},p.stock<1?'Out of stock':'Add to basket')));
+const grid=l=>l.length>0?h('div',{class:'grid'},l.map(card)):h('div',{class:'empty'},h('p',{},'No products match your search or filters.'),h('button',{class:'btn alt sm','data-act':'clear'},'Clear search and filters'));
+const toolbar=()=>h('div',{class:'tb'},
+h('select',{'data-f':'cat','aria-label':'Category'},['All',...CATS].map(c=>h('option',{value:c,selected:c===S.cat},c==='All'?'All categories':c))),
+h('select',{'data-f':'max','aria-label':'Maximum price'},[[0,'Any price'],[3000,'Up to £30'],[7500,'Up to £75'],[15000,'Up to £150']].map(([v,l])=>h('option',{value:v,selected:v===S.max},l))),
+h('select',{'data-f':'sort','aria-label':'Sort by'},[['pop','Most popular'],['lo','Price: low to high'],['hi','Price: high to low'],['az','Name: A–Z']].map(([v,l])=>h('option',{value:v,selected:v===S.sort},l))),
+S.q&&h('button',{class:'btn alt sm','data-act':'clearq'},'Search: “'+S.q+'” ×'));
+const vShop=()=>{const top=[...S.products].sort((a,b)=>b.reviews-a.reviews).slice(0,4),nw=S.products.filter(p=>p.isNew).slice(0,4),hp=S.products.find(p=>p.feat)||S.products[0];
+return h('div',{},
+h('section',{class:'wrap hero'},h('div',{},h('small',{class:'ey'},'Autumn collection'),h('h1',{},'Considered objects for work, home and travel.'),h('p',{class:'lead'},'DSCS Market curates durable, well-made essentials from independent workshops, chosen for how they feel after years, not just on day one.'),h('div',{class:'row'},h('button',{class:'btn','data-act':'shop'},'Shop the collection'),h('button',{class:'btn alt','data-act':'info','data-id':'about'},'Our approach'))),hp&&h('div',{class:'heroimg'},h('img',{src:art(hp),alt:hp.name}))),
+sec('Collections',h('div',{class:'tiles'},CATS.map(c=>h('button',{class:'tile','data-act':'cat','data-id':c},h('strong',{},c),h('small',{},S.products.filter(p=>p.cat===c).length+' products →'))))),
+sec('Best sellers',grid(top)),sec('New arrivals',nw.length>0?grid(nw):h('p',{class:'empty'},'No new arrivals right now.')),
+h('section',{class:'promo'},h('div',{class:'wrap'},h('h2',{},'10% off your first order'),h('p',{},'Enter WELCOME10 in your basket. Also try SAVE20 (£20 off £100+) and FREESHIP.'),h('button',{class:'btn','data-act':'shop'},'Start shopping'))),
+sec('All products',[toolbar(),h('div',{id:'grid'},grid(visible()))],'shop'),
+h('section',{class:'wrap sec'},h('div',{class:'ben'},[['Free delivery over £75','Standard delivery on goods over £75.'],['30-day returns','Changed your mind? Send it back.'],['Transparent pricing','Delivery and discounts shown before you commit.'],['Independent makers','Small workshops, longer-lasting objects.']].map(([a,b])=>h('div',{},h('h3',{},a),h('p',{class:'mut'},b))))),
+h('section',{class:'news'},h('div',{class:'wrap'},h('h2',{},'The DSCS letter'),h('p',{class:'mut'},'Demo form: your address is validated but not stored or sent.'),h('form',{'data-form':'news',novalidate:true},field('Email address','email','','',{type:'email','aria-label':'Email for newsletter'}),h('button',{class:'btn',style:'margin-top:4px'},'Subscribe')))))};
+const quickView=p=>{const rel=S.products.filter(x=>x.cat===p.cat&&x.id!==p.id).slice(0,3);
+return h('div',{class:'qv'},h('img',{src:art(p),alt:p.name}),h('div',{},h('small',{},p.cat+' · '+p.tags.join(' · ')),h('div',{class:'pr big'},gbp(p.price),p.was>p.price&&h('s',{},gbp(p.was))),h('p',{},p.desc),h('p',{},h('small',{},meta(p))),
+p.stock>0?h('div',{class:'row'},h('label',{for:'qq',class:'sr'},'Quantity'),h('input',{id:'qq',type:'number',min:1,max:p.stock,value:1,style:'width:80px'}),h('button',{class:'btn','data-act':'addq','data-id':p.id},'Add to basket')):h('p',{class:'err'},'Currently out of stock.'),
+rel.length>0&&h('div',{class:'rel'},h('small',{},'Related:'),rel.map(r=>h('button',{class:'lnk','data-act':'quick','data-id':r.id},r.name)))))};
+const drawer=()=>{const t=calc(),d=$('#drawer'),c=CODES[S.code];
+d.replaceChildren(h('div',{class:'dh'},h('h2',{style:'margin:0'},'Basket ('+t.count+')'),h('button',{class:'x','data-act':'closeDrawer','aria-label':'Close basket'},'×')),
+t.lines.length>0?h('div',{class:'dl'},t.lines.map(l=>h('div',{class:'ln'},h('img',{src:art(l.p),alt:''}),h('div',{},h('strong',{},l.p.name),h('div',{class:'q'},h('button',{'data-act':'dec','data-id':l.p.id,'aria-label':'Decrease quantity of '+l.p.name},'−'),h('span',{},l.q),h('button',{'data-act':'inc','data-id':l.p.id,'aria-label':'Increase quantity of '+l.p.name,disabled:l.q>=l.p.stock},'+'),h('button',{class:'lnk','data-act':'rm','data-id':l.p.id},'Remove')),l.q>=l.p.stock&&h('small',{},'Maximum stock reached')),h('b',{},gbp(l.p.price*l.q))))):h('div',{class:'dl'},h('p',{class:'empty'},'Your basket is empty.'),h('button',{class:'btn alt',style:'margin-top:10px','data-act':'shop'},'Continue shopping')),
+t.lines.length>0&&h('div',{},c?h('div',{class:'row sp'},h('small',{},S.code+' — '+c.d),h('button',{class:'lnk','data-act':'rmCode'},'Remove code')):h('form',{class:'row','data-form':'code',novalidate:true},h('input',{name:'code',placeholder:'Discount code','aria-label':'Discount code',style:'flex:1'}),h('button',{class:'btn alt sm'},'Apply')),h('p',{class:'err','data-e':'code'}),totals(t),h('button',{class:'btn',style:'width:100%;margin-top:10px','data-act':'checkout'},'Checkout (demo)')))};
+const openDrawer=()=>{drawer();const d=$('#drawer');d.classList.add('open');d.setAttribute('aria-hidden','false');d.querySelector('.x').focus()};
+const closeDrawer=()=>{const d=$('#drawer');d.classList.remove('open');d.setAttribute('aria-hidden','true')};
+let lastFocus,pending;
+const modal=(title,body,wide)=>{closeModal();lastFocus=document.activeElement;const ov=$('#ov');ov.replaceChildren(h('div',{class:'dlg'+(wide?' wide':''),role:'dialog','aria-modal':'true','aria-label':title,tabindex:'-1'},h('button',{class:'x','data-act':'close','aria-label':'Close dialog'},'×'),h('h2',{},title),body));ov.hidden=false;ov.firstChild.focus()};
+const closeModal=()=>{const ov=$('#ov');pending=null;if(ov.hidden)return;ov.hidden=true;ov.replaceChildren();lastFocus&&lastFocus.isConnected&&lastFocus.focus()};
+const ask=(msg,label,fn)=>{modal('Please confirm',h('div',{},h('p',{},msg),h('div',{class:'row'},h('button',{class:'btn','data-act':'yes'},label),h('button',{class:'btn alt','data-act':'close'},'Cancel'))));pending=fn};
+const summary=t=>h('aside',{class:'sum',id:'sum'},h('h3',{},'Order summary'),t.lines.map(l=>row2(l.q+' × '+l.p.name,gbp(l.p.price*l.q))),totals(t));
+const updSum=()=>$('#sum')?.replaceWith(summary(calc()));
+const vCheckout=()=>{const C=S.co,t=calc(),e=C.err;
+if(C.step===4&&C.done){const o=C.done;return h('section',{class:'wrap sec narrow'},h('p',{class:'note'},'DEMO ORDER — no payment was taken, no email was sent and nothing will be shipped.'),h('h2',{},'Thank you, '+o.name.split(' ')[0]),h('p',{},'Your demo order reference is ',h('strong',{},o.ref),'.'),orderView(o),h('button',{class:'btn',style:'margin-top:16px','data-act':'done'},'Return to the shop'))}
+if(t.lines.length<1)return h('section',{class:'wrap sec'},h('p',{class:'empty'},'Your basket is empty.'),h('button',{class:'btn','data-act':'shop'},'Continue shopping'));
+const D=C.d,c=C.c;let body;
+if(C.step===1)body=[h('h2',{},'Contact'),field('Email address','email',c.email,e.email,{type:'email',autocomplete:'email','data-k':'c.email'}),field('Full name','name',c.name,e.name,{autocomplete:'name','data-k':'c.name'}),field('Telephone','phone',c.phone,e.phone,{type:'tel',opt:1,autocomplete:'tel','data-k':'c.phone'})];
+else if(C.step===2)body=[h('h2',{},'Delivery'),field('Street address','addr',D.addr,e.addr,{autocomplete:'street-address','data-k':'d.addr'}),field('Town or city','city',D.city,e.city,{autocomplete:'address-level2','data-k':'d.city'}),field('Postcode','post',D.post,e.post,{autocomplete:'postal-code','data-k':'d.post'}),field('Country','country',D.country,e.country,{opts:COUNTRIES,'data-k':'d.country'}),
+h('fieldset',{},h('legend',{},'Delivery method'),Object.entries(SHIP).map(([k,m])=>h('label',{class:'rad'},h('input',{type:'radio',name:'method',value:k,checked:D.method===k,'data-k':'d.method'}),m.n+' — '+(calc(k).ship?gbp(calc(k).ship):'Free'))),h('p',{class:'err'},e.method||''))];
+else body=[h('h2',{},'Review'),h('p',{},h('strong',{},c.name),' · ',c.email,c.phone?' · '+c.phone:''),h('p',{},[D.addr,D.city,D.post,D.country].join(', ')),h('p',{},SHIP[D.method].n),
+h('p',{class:'note'},'Simulated payment: DSCS Market is a demo. No card details are collected and no payment is processed.'),h('label',{class:'rad'},h('input',{type:'checkbox',name:'terms',checked:C.terms,'data-k':'terms','aria-describedby':'te'}),'I understand this is a demo order and nothing will be charged or shipped.'),h('p',{class:'err',id:'te'},e.terms||'')];
+return h('section',{class:'wrap sec'},h('p',{class:'note'},'DEMO CHECKOUT — no real payment or order.'),h('ol',{class:'steps'},['Contact','Delivery','Review','Confirmation'].map((s,i)=>h('li',{class:C.step===i+1?'on':'','aria-current':C.step===i+1?'step':null},(i+1)+'. '+s))),
+h('div',{class:'co'},h('form',{'data-form':'step',novalidate:true},body,h('div',{class:'row'},C.step>1&&h('button',{type:'button',class:'btn alt','data-act':'back'},'Back'),h('button',{class:'btn',disabled:C.busy},C.step===3?'Simulate payment & place demo order':'Continue'))),summary(t)))};
+const orderView=(o,adm)=>{const acts=adm?NEXT[o.status]:o.status==='Pending'?['Cancelled']:[];
+return h('div',{},h('p',{},h('strong',{},o.status),' · '+fmtDate(o.created)),h('p',{class:'mut'},`${o.name} · ${o.email} · ${[o.addr,o.city,o.post,o.country].join(', ')} · ${SHIP[o.method]?.n||o.method}`),
+o.lines.map(l=>row2(l.qty+' × '+l.name+' ('+gbp(l.price)+')',gbp(l.price*l.qty))),row2('Subtotal',gbp(o.sub)),o.disc>0&&row2('Discount ('+o.code+')','−'+gbp(o.disc)),row2('Delivery',o.ship?gbp(o.ship):'Free'),row2('Total',gbp(o.total),1),
+h('small',{},'History: '+o.history.map(x=>x.s+' ('+fmtDate(x.t)+')').join(' → ')),acts.length>0&&h('div',{class:'row',style:'margin-top:12px'},acts.map(s=>h('button',{class:'btn'+(s==='Cancelled'?' alt':'')+' sm','data-act':'setStatus','data-id':o.ref,'data-s':s},s==='Cancelled'?'Cancel order':'Mark '+s))))};
+const vAccount=()=>{const u=me();
+if(!u)return h('section',{class:'wrap sec'},h('p',{class:'note'},'Demo accounts are stored only in this browser and have no password. They are not secure — never enter real credentials or sensitive data.'),h('div',{class:'cols'},
+h('div',{},h('h2',{},'Sign in'),h('form',{'data-form':'signin',novalidate:true},field('Email address','email','','',{type:'email'}),h('button',{class:'btn'},'Sign in'))),
+h('div',{},h('h2',{},'Create account'),h('form',{'data-form':'register',novalidate:true},field('Full name','name','',''),field('Email address','email','','',{type:'email'}),h('button',{class:'btn'},'Register')))));
+const os=S.orders.filter(o=>o.email===u.email);
+return h('section',{class:'wrap sec'},h('div',{class:'row sp'},h('h2',{},'Hello, '+u.name),h('button',{class:'btn alt','data-act':'signout'},'Sign out')),h('p',{class:'note'},'Demo account (browser-only, no password). Orders are matched by email on this device.'),
+h('div',{class:'cols'},h('div',{},h('h3',{},'Saved delivery details'),h('form',{'data-form':'profile',novalidate:true},field('Street address','addr',u.addr,''),field('Town or city','city',u.city,''),field('Postcode','post',u.post,''),field('Country','country',u.country||'United Kingdom','',{opts:COUNTRIES}),h('button',{class:'btn'},'Save details'))),
+h('div',{},h('h3',{},'Order history'),os.length>0?h('div',{class:'tw'},h('table',{},h('tbody',{},os.map(o=>h('tr',{},h('td',{},o.ref),h('td',{},o.status),h('td',{},gbp(o.total)),h('td',{},h('button',{class:'btn alt sm','data-act':'order','data-id':o.ref},'View'))))))):h('p',{class:'empty'},'No orders yet.'))))};
+const afilter=sel=>h('form',{class:'tb','data-form':'afilter'},h('input',{name:'q',value:S.aq,placeholder:'Search','aria-label':'Search'}),sel&&h('select',{name:'f','aria-label':'Status'},['All',...STATUS,'Cancelled'].map(s=>h('option',{value:s,selected:s===S.af},s))),h('button',{class:'btn sm'},'Filter'));
+const aOver=()=>{const live=S.orders.filter(o=>o.status!=='Cancelled'),rev=live.reduce((a,o)=>a+o.total,0),units=live.reduce((a,o)=>a+o.lines.reduce((b,l)=>b+l.qty,0),0),low=S.products.filter(p=>p.stock<=5);
+return h('div',{},h('div',{class:'stats'},[['Revenue (excl. cancelled)',gbp(rev)],['Orders',String(S.orders.length)],['Average order',gbp(live.length?Math.round(rev/live.length):0)],['Units sold',String(units)]].map(k=>h('div',{class:'stat'},h('small',{},k[0]),h('strong',{},k[1])))),
+h('h3',{},'Orders by status'),h('p',{},[...STATUS,'Cancelled'].map(s=>s+': '+S.orders.filter(o=>o.status===s).length).join(' · ')),h('h3',{},'Low stock (5 or fewer)'),low.length>0?h('ul',{},low.map(p=>h('li',{},p.name+' — '+p.stock))):h('p',{},'All products are well stocked.'))};
+const aProds=()=>{const q=S.aq.toLowerCase(),l=S.products.filter(p=>!q||(p.name+p.cat).toLowerCase().includes(q));
+return h('div',{},h('div',{class:'row sp'},afilter(),h('button',{class:'btn sm','data-act':'newP'},'Add product')),l.length>0?h('div',{class:'tw'},h('table',{},h('thead',{},h('tr',{},['Product','Category','Price','Stock',''].map(x=>h('th',{},x)))),h('tbody',{},l.map(p=>h('tr',{},h('td',{},p.name),h('td',{},p.cat),h('td',{},gbp(p.price)),h('td',{},h('input',{type:'number',min:0,value:p.stock,'data-stock':p.id,'aria-label':'Stock for '+p.name})),h('td',{},h('button',{class:'btn alt sm','data-act':'editP','data-id':p.id},'Edit'),' ',h('button',{class:'btn alt sm','data-act':'delP','data-id':p.id},'Delete'))))))):h('p',{class:'empty'},'No products match.'))};
+const aOrds=()=>{const q=S.aq.toLowerCase(),l=S.orders.filter(o=>(S.af==='All'||o.status===S.af)&&(!q||(o.ref+o.name+o.email).toLowerCase().includes(q)));
+return h('div',{},afilter(1),l.length>0?h('div',{class:'tw'},h('table',{},h('thead',{},h('tr',{},['Reference','Date','Customer','Status','Total',''].map(x=>h('th',{},x)))),h('tbody',{},l.map(o=>h('tr',{},h('td',{},o.ref),h('td',{},fmtDate(o.created)),h('td',{},o.name),h('td',{},o.status),h('td',{},gbp(o.total)),h('td',{},h('button',{class:'btn alt sm','data-act':'order','data-id':o.ref},'Open'))))))):h('p',{class:'empty'},S.orders.length?'No orders match.':'No orders yet — place a demo order first.'))};
+const vAdmin=()=>{if(!S.admin)return h('section',{class:'wrap sec narrow'},h('h2',{},'Administration (demo mode)'),h('p',{class:'note'},'This dashboard runs in your browser. Anyone with this file can open it, so it is NOT a secure admin system. A real store needs server-side authentication and permissions. Changes are saved only in this browser.'),h('button',{class:'btn','data-act':'enterAdmin'},'Enter demo admin mode'));
+return h('section',{class:'wrap sec'},h('div',{class:'row sp'},h('h2',{style:'margin:0'},'Administration'),h('span',{class:'badge'},'Demo mode — not secure'),h('button',{class:'btn alt sm','data-act':'exitAdmin'},'Exit admin')),
+h('div',{class:'tabs',role:'tablist'},[['over','Overview'],['prods','Products'],['ords','Orders']].map(([k,l])=>h('button',{role:'tab','aria-selected':String(S.tab===k),'data-act':'tab','data-id':k},l))),S.tab==='over'?aOver():S.tab==='prods'?aProds():aOrds())};
+const prodForm=p=>{const n=!p;p=p||{name:'',cat:CATS[0],price:0,was:0,stock:10,desc:'',tags:[]};
+return h('form',{'data-form':'prod','data-id':n?'':p.id,novalidate:true},field('Name','name',p.name,''),field('Category','cat',p.cat,'',{opts:CATS}),field('Price (£)','price',p.price?(p.price/100).toFixed(2):'','',{inputmode:'decimal'}),field('Was-price (£)','was',p.was?(p.was/100).toFixed(2):'','',{opt:1,inputmode:'decimal'}),field('Stock quantity','stock',p.stock,'',{type:'number',min:0}),field('Description','desc',p.desc,'',{ta:1,rows:3}),field('Tags (comma-separated)','tags',p.tags.join(', '),'',{opt:1}),h('button',{class:'btn'},n?'Add product':'Save changes'))};
+/* ===== 12. EVENT HANDLING ===== */
+const A={home(){S.cat='All';S.q='';S.max=0;go('shop')},shop(){closeDrawer();go('shop',scrollShop)},nav(id){go(id)},cat(id){S.cat=id;S.q='';go('shop',scrollShop)},
+quick(id){const p=prod(id);if(p){$('#sug').hidden=true;modal(p.name,quickView(p),true)}},add(id){addCart(id)},
+addq(id){const p=prod(id),q=Number($('#qq').value);if(!p||!Number.isInteger(q)||q<1)return toast('Enter a whole quantity of 1 or more.');if(q>p.stock)return toast(`Only ${p.stock} in stock.`);addCart(id,q);closeModal()},
+cart(){openDrawer()},closeDrawer,close:closeModal,inc(id){setQty(id,(S.cart[id]||0)+1)},dec(id){setQty(id,(S.cart[id]||0)-1)},rm(id){setQty(id,0)},rmCode(){S.code='';persist('code');chrome();S.view==='checkout'&&render()},
+checkout(){if(calc().count<1)return toast('Your basket is empty.');closeDrawer();const u=me(),C=S.co;if(C.done)S.co=freshCo();if(u){S.co.c.email||(S.co.c.email=u.email);S.co.c.name||(S.co.c.name=u.name);['addr','city','post'].forEach(k=>{S.co.d[k]||(S.co.d[k]=u[k]||'')});if(u.country)S.co.d.country=u.country}go('checkout')},
+back(){S.co.step--;S.co.err={};render()},done(){S.co=freshCo();go('shop')},info(id){modal(INFO[id][0],h('p',{},INFO[id][1]))},menu(){const n=$('#nav'),o=n.classList.toggle('open');document.querySelector('[data-act=menu]').setAttribute('aria-expanded',String(o))},
+clear(){S.q='';S.cat='All';S.max=0;render();scrollShop()},clearq(){S.q='';render();scrollShop()},signout(){S.me=null;persist('me');render();toast('Signed out.')},
+order(ref){const o=S.orders.find(x=>x.ref===ref);o&&modal('Order '+o.ref,orderView(o,S.admin&&S.view==='admin'),true)},setStatus(ref,_,el){setStatus(ref,el.dataset.s)},
+enterAdmin(){S.admin=true;render()},exitAdmin(){S.admin=false;render()},tab(id){S.tab=id;S.aq='';S.af='All';render()},newP(){modal('Add product',prodForm())},editP(id){const p=prod(id);p&&modal('Edit '+p.name,prodForm(p))},
+delP(id){const p=prod(id);p&&ask(`Delete “${p.name}”? Past orders keep their saved snapshot.`,'Delete product',()=>{S.products=S.products.filter(x=>x.id!==id);delete S.cart[id];persist('products');persist('cart');toast('Product deleted.');render()})},
+yes(){const f=pending;closeModal();f&&f()},
+reset(){ask('Reset all demo data? This clears the basket, orders, accounts and product edits stored in this browser.','Reset',()=>{try{Object.keys(localStorage).filter(k=>k.startsWith(K)).forEach(k=>localStorage.removeItem(k))}catch{}
+Object.assign(S,{products:seed(),cart:{},orders:[],users:[],me:null,code:'',co:freshCo(),admin:false,cat:'All',q:'',max:0,sort:'pop',tab:'over'});closeDrawer();go('shop');toast('Demo data reset.')})}};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el&&A[el.dataset.act]){e.preventDefault();A[el.dataset.act](el.dataset.id,undefined,el)}});
+document.addEventListener('pointerdown',e=>{if($('#drawer').classList.contains('open')&&!e.target.closest('#drawer,[data-act=cart],#ov'))closeDrawer();if(e.target===$('#ov'))closeModal();if(!e.target.closest('.srch'))$('#sug').hidden=true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#ov').hidden)closeModal();else if($('#drawer').classList.contains('open'))closeDrawer();$('#sug').hidden=true}});
+document.addEventListener('input',e=>{const el=e.target,k=el.dataset&&el.dataset.k;if(!k)return;if(el.type==='checkbox'){S.co.terms=el.checked;return}const[g,n]=k.split('.');S.co[g][n]=el.value});
+document.addEventListener('change',e=>{const el=e.target;
+if(el.dataset.f){S[el.dataset.f]=el.dataset.f==='max'?Number(el.value):el.value;$('#grid').replaceChildren(grid(visible()))}
+else if(el.dataset.k==='d.method')updSum();
+else if(el.dataset.stock){const p=prod(el.dataset.stock),n=Number(el.value);if(p&&el.value!==''&&Number.isInteger(n)&&n>=0){p.stock=n;persist('products');toast('Stock updated.')}else{if(p)el.value=p.stock;toast('Enter a whole number, 0 or more.')}}});
+$('#q').addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase(),s=$('#sug');if(!v){s.hidden=true;return}
+const m=S.products.filter(p=>(p.name+' '+p.tags.join(' ')+' '+p.cat).toLowerCase().includes(v)).slice(0,5);
+s.replaceChildren(...(m.length>0?m.map(p=>h('button',{type:'button','data-act':'quick','data-id':p.id},h('img',{src:art(p),alt:''}),p.name+' — '+gbp(p.price))):[h('p',{class:'empty sm'},'No matches for “'+e.target.value.trim()+'”.')]));s.hidden=false});
+const FORMS={search(d){S.q=(d.q||'').trim();S.cat='All';$('#sug').hidden=true;go('shop',scrollShop)},
+code(d,f){const m=applyCode(d.code||'');m?setErrs(f,{code:m}):(toast('Discount code applied.'),chrome())},
+news(d,f){RE.email.test((d.email||'').trim())?(toast('Thanks — demo only, nothing was stored or sent.'),f.reset(),setErrs(f,{})):setErrs(f,{email:'Enter a valid email address.'})},
+step(){const C=S.co,e=validate(C.step);C.err=e;if(Object.keys(e).length>0){render();$('[aria-invalid=true]')?.focus();return}if(C.step===3)return placeOrder();C.step++;render();scrollTo(0,0)},
+signin(d,f){const u=S.users.find(x=>x.email===(d.email||'').trim().toLowerCase());if(!RE.email.test((d.email||'').trim()))return setErrs(f,{email:'Enter a valid email address.'});if(!u)return setErrs(f,{email:'No demo account with that email. Register first.'});S.me=u.email;persist('me');render();toast('Signed in (demo).')},
+register(d,f){const e={},em=(d.email||'').trim().toLowerCase();if(!(d.name||'').trim())e.name='Enter your name.';if(!RE.email.test(em))e.email='Enter a valid email address.';else if(S.users.some(u=>u.email===em))e.email='That email is already registered here.';setErrs(f,e);if(Object.keys(e).length)return;
+S.users.push({email:em,name:d.name.trim(),addr:'',city:'',post:'',country:'United Kingdom'});S.me=em;persist('users');persist('me');render();toast('Demo account created.')},
+profile(d){const u=me();if(!u)return;['addr','city','post','country'].forEach(k=>{u[k]=(d[k]||'').trim()});persist('users');toast('Delivery details saved.')},
+afilter(d){S.aq=(d.q||'').trim();if(d.f)S.af=d.f;render()},
+prod(d,f){const e={},id=f.dataset.id,price=toPence(d.price),was=d.was&&d.was.trim()?toPence(d.was):0,stock=Number(d.stock);
+if(!d.name.trim())e.name='Enter a product name.';if(price===null||price<1)e.price='Enter a price such as 49.00.';if(was===null)e.was='Enter a valid price or leave blank.';if(d.stock.trim()===''||!Number.isInteger(stock)||stock<0)e.stock='Enter a whole number, 0 or more.';if(!d.desc.trim())e.desc='Enter a description.';
+setErrs(f,e);if(Object.keys(e).length)return;const tags=d.tags.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean),v={name:d.name.trim(),cat:d.cat,price,was,stock,desc:d.desc.trim(),tags};
+if(id&&prod(id))Object.assign(prod(id),v);else S.products.push({id:'p'+Date.now().toString(36),rating:0,reviews:0,feat:false,isNew:true,...v});
+persist('products');closeModal();toast('Product saved.');render()}};
+document.addEventListener('submit',e=>{const f=e.target.closest('form[data-form]');if(!f)return;e.preventDefault();FORMS[f.dataset.form]&&FORMS[f.dataset.form](Object.fromEntries(new FormData(f)),f)});
+/* ===== 13. INITIALISATION & ERROR HANDLING ===== */
+window.addEventListener('error',()=>toast('Something went wrong. If it persists, use “Reset demo data” in the footer.'));
+try{render()}catch(err){console.error(err);$('#main').replaceChildren(h('section',{class:'wrap sec'},h('h2',{},'Something went wrong'),h('p',{},'The storefront could not start. Resetting demo data usually fixes this.'),h('button',{class:'btn','data-act':'reset'},'Reset demo data')))}
+</script>
+</body></html>
