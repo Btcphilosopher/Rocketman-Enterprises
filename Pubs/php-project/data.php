@@ -1,0 +1,231 @@
+<?php
+/**
+ * The MicroPub Collective - Central Data Store
+ * Contains all pubs, drinks, food, and event listings.
+ */
+
+$site_config = [
+    'title' => 'The MicroPub Collective',
+    'tagline' => 'Small Pubs. Big Character.',
+    'description' => 'A collection of outstanding micropubs across the UK, celebrating great drinks, local community and British hospitality.',
+    'email' => 'hello@micropubcollective.co.uk',
+    'phone' => '+44 (0) 1522 849201',
+    'year' => date('Y'),
+];
+
+$pubs = [
+    [
+        'id' => 'hop-and-anchor',
+        'name' => 'The Hop & Anchor',
+        'tagline' => 'Historic cobblestone charm & gravity-fed cellar ales',
+        'town' => 'Lincoln',
+        'county' => 'Lincolnshire',
+        'region' => 'Yorkshire & East',
+        'address' => '14 Steep Hill, Bailgate',
+        'postcode' => 'LN2 1LT',
+        'phone' => '01522 849201',
+        'image' => 'images/hero.jpg',
+        'cask_lines' => 6,
+        'ciders' => 8,
+        'dog_friendly' => true,
+        'beer_garden' => true,
+        'camra_award' => 'CAMRA Branch Pub of the Year 2024',
+        'hours' => [
+            'Mon - Fri' => '12:00 - 22:30',
+            'Saturday'  => '11:30 - 23:00',
+            'Sunday'    => '12:00 - 21:00',
+        ],
+        'signature_ales' => ['Castle Gold (4.2%)', 'Cathedral Porter (5.1%)', 'Citra Sunburst (4.5%)'],
+        'description' => 'Tucked beneath the shadow of Lincoln Cathedral on historic Steep Hill, The Hop & Anchor celebrates pure conversation, no fruit machines or television, and pristine cask ales poured straight by gravity.',
+    ],
+    [
+        'id' => 'stumble-inn',
+        'name' => 'The Stumble Inn',
+        'tagline' => 'Pennine valley refuge with rotating artisan micro-brews',
+        'town' => 'Hebden Bridge',
+        'county' => 'West Yorkshire',
+        'region' => 'Yorkshire & East',
+        'address' => '8 Bridge Gate',
+        'postcode' => 'HX7 8EX',
+        'phone' => '01422 845112',
+        'image' => 'images/interior.jpg',
+        'cask_lines' => 8,
+        'ciders' => 12,
+        'dog_friendly' => true,
+        'beer_garden' => false,
+        'camra_award' => 'Yorkshire Regional Micropub Champion',
+        'hours' => [
+            'Mon - Fri' => '14:00 - 22:00',
+            'Saturday'  => '12:00 - 23:00',
+            'Sunday'    => '12:00 - 20:30',
+        ],
+        'signature_ales' => ['Hebden Hop Session (4.0%)', 'Black Moor Stout (4.8%)', 'Pennine Gold (4.4%)'],
+        'description' => 'A cozy sanctuary for hill walkers, canal wanderers, and ale lovers in the heart of the Calder Valley. Wooden pews, roaring cast iron stove, and guest ales from independent northern microbreweries.',
+    ],
+    [
+        'id' => 'snug-and-barrel',
+        'name' => 'The Snug & Barrel',
+        'tagline' => 'Kentish hop heritage & traditional stillage service',
+        'town' => 'Canterbury',
+        'county' => 'Kent',
+        'region' => 'Kent & South East',
+        'address' => '22 Sun Street',
+        'postcode' => 'CT1 2HX',
+        'phone' => '01227 458993',
+        'image' => 'images/drinks.jpg',
+        'cask_lines' => 6,
+        'ciders' => 10,
+        'dog_friendly' => true,
+        'beer_garden' => true,
+        'camra_award' => 'East Kent CAMRA Micropub of the Year',
+        'hours' => [
+            'Mon - Fri' => '12:00 - 22:00',
+            'Saturday'  => '12:00 - 22:30',
+            'Sunday'    => '12:00 - 20:00',
+        ],
+        'signature_ales' => ['Canterbury Best (4.1%)', 'East Kent Golding Special (4.6%)', 'Hop Monster (5.2%)'],
+        'description' => 'Located in the birthplace of the UK micropub movement. Serving ales sourced exclusively within 30 miles of Kent hop farms, along with farmhouse cloudy perries and ciders.',
+    ],
+    [
+        'id' => 'whistling-cask',
+        'name' => 'The Whistling Cask',
+        'tagline' => 'Cotswold stone micropub & Somerset orchard ciders',
+        'town' => 'Bath',
+        'county' => 'Somerset',
+        'region' => 'Cotswolds & West',
+        'address' => '19 Walcot Street',
+        'postcode' => 'BA1 5BG',
+        'phone' => '01225 310884',
+        'image' => 'images/food.jpg',
+        'cask_lines' => 5,
+        'ciders' => 14,
+        'dog_friendly' => true,
+        'beer_garden' => true,
+        'camra_award' => 'Somerset Cider Pub of the Year',
+        'hours' => [
+            'Mon - Fri' => '14:00 - 22:30',
+            'Saturday'  => '12:00 - 23:00',
+            'Sunday'    => '12:00 - 21:00',
+        ],
+        'signature_ales' => ['Bath Gem (4.1%)', 'Cotswold Spring Best (4.5%)', 'Lilliput Pale (3.8%)'],
+        'description' => 'Walcot Street favourite micropub, housed in honey-colored Bath stone. Famous for its temperature-controlled stillage room visible behind glazed timber screens.',
+    ]
+];
+
+$drinks = [
+    [
+        'name' => 'Landlord Golden Cask',
+        'producer' => 'Timothy Taylor\'s Brewery',
+        'origin' => 'Keighley, West Yorkshire',
+        'category' => 'Cask Ale',
+        'abv' => '4.3%',
+        'notes' => 'Complex citrus and floral hop aroma with rich malt base. CAMRA Champion Beer of Britain.',
+        'price_half' => '£2.40',
+        'price_pint' => '£4.60',
+    ],
+    [
+        'name' => 'Citra Sunburst Pale',
+        'producer' => 'Oakham Ales',
+        'origin' => 'Peterborough, Cambridgeshire',
+        'category' => 'Cask Ale',
+        'abv' => '4.2%',
+        'notes' => 'Crisp, refreshingly bitter with intense grapefruit, lychee and passionfruit character.',
+        'price_half' => '£2.50',
+        'price_pint' => '£4.80',
+    ],
+    [
+        'name' => 'Old Peculier Traditional Ale',
+        'producer' => 'Theakston Brewery',
+        'origin' => 'Masham, North Yorkshire',
+        'category' => 'Cask Ale',
+        'abv' => '5.6%',
+        'notes' => 'Full-bodied dark ruby ale with black cherry, dark chocolate and banana ester undertones.',
+        'price_half' => '£2.75',
+        'price_pint' => '£5.20',
+    ],
+    [
+        'name' => 'Dabinett Single Variety Vintage Cider',
+        'producer' => 'Sheppy\'s Farmhouse',
+        'origin' => 'Taunton, Somerset',
+        'category' => 'Cider & Perry',
+        'abv' => '6.5%',
+        'notes' => 'Matured in oak vats. Rich bittersweet apple tannins with a soft buttery vanilla finish.',
+        'price_half' => '£2.70',
+        'price_pint' => '£5.00',
+    ],
+    [
+        'name' => 'Bacchus Reserve English White Wine',
+        'producer' => 'Chapel Down Estate',
+        'origin' => 'Tenterden, Kent',
+        'category' => 'Fine Wine',
+        'abv' => '12.0%',
+        'notes' => 'Crisp elderflower, nettle and lime zest with flinty chalk minerality.',
+        'price_half' => '£5.20 (125ml)',
+        'price_pint' => '£7.80 (175ml)',
+    ],
+    [
+        'name' => 'Small-Batch Damson & Juniper Gin',
+        'producer' => 'Masons of Yorkshire',
+        'origin' => 'Aiskew, North Yorkshire',
+        'category' => 'Artisan Spirits',
+        'abv' => '42.0%',
+        'notes' => 'Steeped with hand-foraged Yorkshire hedgerow damsons and pink peppercorns.',
+        'price_half' => '£4.50 (25ml)',
+        'price_pint' => '£7.50 (50ml)',
+    ]
+];
+
+$food_items = [
+    [
+        'name' => 'Gourmet Free-Range Scotch Egg',
+        'description' => 'Cumberland seasoned outdoor-reared pork with sage and toasted mace crumbs, soft runny golden yolk, served with Tracklements wholegrain mustard.',
+        'price' => '£5.95',
+        'category' => 'Bar Bites',
+        'pairing' => 'Oakham Citra or Timothy Taylor Landlord',
+    ],
+    [
+        'name' => 'Authentic Melton Mowbray Pork Pie',
+        'description' => 'Crisp hot-water crust pastry filled with uncured British pork jelly and seasoned prime meat, served with English piccalilli.',
+        'price' => '£6.50',
+        'category' => 'Artisan Pies',
+        'pairing' => 'Theakston Old Peculier or dark mild ales',
+    ],
+    [
+        'name' => 'The Collective Ploughman’s Platter',
+        'description' => 'Keen’s Somerset Cheddar, Colston Bassett Stilton, thick ham hock terrine, pickled onions, buttered sourdough, apple chutney and crisp celery.',
+        'price' => '£13.50',
+        'category' => 'Sharing Boards',
+        'pairing' => 'Sheppy\'s Vintage Cider or hoppy amber bitters',
+    ],
+    [
+        'name' => 'Mature Cheddar & Ale Chutney Toastie',
+        'description' => 'Slices of local sourdough griddled in farmhouse butter with 18-month aged cheddar, Worcestershire splash, and ale relish.',
+        'price' => '£7.50',
+        'category' => 'Bar Bites',
+        'pairing' => 'Castle Gold or crisp session pale',
+    ]
+];
+
+$events = [
+    [
+        'title' => 'Sunday Acoustic Folk & Fiddle Session',
+        'pub' => 'The Copper Kettle Tap',
+        'location' => 'York',
+        'date' => 'Every Sunday, 16:00 - 19:00',
+        'description' => 'Unamplified traditional acoustic jam with guest folk fiddlers and guitars. Free entry.',
+    ],
+    [
+        'title' => 'Meet the Brewer: Northern Monk Cellar Tasting',
+        'pub' => 'The Hop & Anchor',
+        'location' => 'Lincoln',
+        'date' => 'Thursday, 12th November, 19:30',
+        'description' => 'Guided tasting flight of 5 rare cask & wood-aged releases paired with Lincolnshire cheeses.',
+    ],
+    [
+        'title' => 'The Great Micropub Trivia & Ale Quiz',
+        'pub' => 'The Stumble Inn',
+        'location' => 'Hebden Bridge',
+        'date' => 'Tuesday Evenings, 20:00',
+        'description' => 'No apps, no smartphones, strictly pen-and-paper. 5 rounds of general knowledge & blind beer test.',
+    ]
+];

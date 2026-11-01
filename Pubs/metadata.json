@@ -1,0 +1,6 @@
+{
+  "name": "The MicroPub Collective",
+  "description": "A curated collection of outstanding micropubs across the UK, celebrating great drinks, local community, and British hospitality — featuring an interactive pub finder, drinks cellar, artisan food, events, and a full modular PHP source suite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
